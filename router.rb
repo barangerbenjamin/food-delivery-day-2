@@ -1,16 +1,17 @@
 # TODO: implement the router of your app.
 class Router
-  def initialize(meals_controller, customers_controller, sessions_controller)
+  def initialize(meals_controller, customers_controller, sessions_controller, orders_controller)
     @meals_controller = meals_controller
     @customers_controller = customers_controller
     @sessions_controller = sessions_controller
+    @orders_controller = orders_controller
     @running = true
   end
 
   def run
-    employee = @sessions_controller.sign_in
+    @employee = @sessions_controller.sign_in
     while @running
-      if employee.manager?
+      if @employee.manager?
         display_manager_menu
         choice = gets.chomp.to_i
         route_manager_action(choice)
@@ -36,8 +37,8 @@ class Router
 
   def route_delivery_guy_action(choice)
     case choice
-      when 1 then puts "TODO today :) "
-      when 2 then puts "TODO today :) "
+      when 1 then @orders_controller.list_my_orders(@employee)
+      when 2 then @orders_controller.mark_as_delivered(@employee)
       when 3 then @running = false
     end
   end

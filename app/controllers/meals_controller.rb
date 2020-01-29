@@ -15,7 +15,7 @@ class MealsController
   end
 
   # add meals
-  def create
+  def add
     #1. Ask user for name and price -> meals_view
     name = @meals_view.ask_for("name")
     price = @meals_view.ask_for("price").to_i

@@ -12,15 +12,20 @@ class EmployeeRepository
     return @employees
   end
 
-  def find_employee(username)
+  def find_by_username(username)
     @employees.find { |employee| employee.username == username }
   end
 
-  def add(employee)
-    employee.id = @next_id
-    @employees << employee
-    @next_id += 1
-    save_csv
+  def all_delivery_guys
+    # delivery_guys = []
+    # @employees.each do |employee|
+    #   delivery_guys << employee if employee.delivery_guy?
+    # end
+    @employees.select { |employee| employee.delivery_guy? }
+  end
+
+  def find(id)
+    @employees.find { |employee| employee.id == id }
   end
 
   def save_csv
